@@ -1,5 +1,6 @@
 'use strict'
-
+// создаем класс Враг
+	//создаем в нем конструктор с аргументом экземпляра класса Game
 class Enemy {
 	constructor(game) {
 		this.game = game;
@@ -16,7 +17,7 @@ class Enemy {
 			this.recieveDamage(1);
 		}.bind(this);
 
-		this.coordinates();
+		this.setCoordinates();
 	}
 
 	// уменьшаем количество хп врага в зависимости от нанесенного урона
@@ -31,6 +32,9 @@ class Enemy {
 		}
 		this.changeHpBar();
 		this.displayHp();
+	}
+	getReward() {
+		return this.game.level * 3;
 	}
 	// метод изменения полоски здоровья
 	// высчитываем соотношение текущего здоровья и начального здоровья в процентах
@@ -47,12 +51,12 @@ class Enemy {
 	// вызываем метод из экземпляра класса Game
 	kill() {
 		this.game.battlefieldElement.removeChild(this.enemyElement);
-		this.game.onKill();
+		this.game.onKill(this);
 	}
 
 	// метод рассчета случайного местоположения врага
 	// размер родительского элемента, минус размер врага
-	coordinates() {
+	setCoordinates() {
 		this.enemyElement.style.left = Math.random() * (this.game.battlefieldElement.clientWidth - 40) + 'px';
 		this.enemyElement.style.top = Math.random() * (this.game.battlefieldElement.clientHeight - 40) + 'px';
 	}

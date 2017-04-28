@@ -18,7 +18,12 @@ class Hero {
 		this.initialDamage = options.initialDamage || 1;
 
 		// создаем элемент героя по хелперу
-		this.heroElement = createAndAppend(this.game.controlElement, this.mainString(), this.name, this.visibility);
+		this.heroElement = createAndAppend(
+			this.game.controlElement, 
+			this.mainString(), 
+			this.name, 
+			this.visibility
+		);
 
 		// приклике по врагу наносим урон
 		this.heroElement.onclick = function() {
@@ -32,7 +37,7 @@ class Hero {
 			}
 			this.setVisible();
 		}.bind(this), 1000);
-
+		this.setVisible();
 	}
 
 	// метод увеличения количества героев данного типа

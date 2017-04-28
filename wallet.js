@@ -4,12 +4,12 @@ class Wallet {
 	constructor(game) {
 		this.game = game;
 
-		this.walletElement = document.createElement('div');
-		this.walletElement.className = 'wallet';
-		this.walletElement.innerHTML = this.getMoney()  + ' Золото';
-		this.game.controlElement.appendChild(this.walletElement);
+		this.walletElement = createAndAppend(
+			this.game.controlElement, 
+			this.getMoney() + ' Золото', 
+			'wallet'
+		);
 	}
-
 
 	// возвращает число денег из хранилища
 	getMoney() {

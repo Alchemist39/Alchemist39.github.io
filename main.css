@@ -54,7 +54,7 @@ body {
 	}
 
 
-.level, .wallet, .reset, .clicker {
+.level, .wallet, .reset, .clicker, .pig, .devil, .horse {
 	height: 40px;
 	width: 25%;
 	padding-left: 40px;
@@ -63,6 +63,10 @@ body {
 	display: inline-flex;
 	align-items: center;
 }
+.clicker, .pig, .devil, .horse {
+	width: 35%;
+}
+
 .reset {
 	background-image: url(png/32x32/Fire.png);	
 	cursor: pointer;
@@ -75,5 +79,15 @@ body {
 }
 .clicker {
 	background-image: url(png/32x32/Interact.png);
+	cursor: pointer;
+}
+.pig {
+	background-image: url(png/32x32/Pig.png);
+	cursor: pointer;
+}.devil {
+	background-image: url(png/32x32/Devil.png);
+	cursor: pointer;
+}.horse {
+	background-image: url(png/32x32/Horse.png);
 	cursor: pointer;
 }

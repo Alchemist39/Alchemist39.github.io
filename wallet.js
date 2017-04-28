@@ -6,32 +6,41 @@ class Wallet {
 
 		this.walletElement = document.createElement('div');
 		this.walletElement.className = 'wallet';
-		this.walletElement.innerHTML = this.money || 0;
+		this.walletElement.innerHTML = this.getMoney()  + ' Золото';
 		this.game.controlElement.appendChild(this.walletElement);
-
-		this.money = 0;
 	}
 
 
-	get money() {
-		return this._money;
+	// возвращает число денег из хранилища
+	getMoney() {
+		return parseInt(localStorage.getItem('money')) || 0;
 	};
-	set money(amount) {
-		this._money = amount;
+
+	// сохраняет в хранилище переданное значение и выводит их на экран
+	setMoney(amount) {
+		localStorage.setItem('money', amount);
 		this.displayMoney();
 	};
 
+	// добавляет деньги в хранилище
 	addMoney(value) {
-		this.money += value;
+		var newValue = this.getMoney() + value;
+		this.setMoney(newValue);
 	};
+
+	// тратит деньги из хранилища
+	// если денег не хватает, выводит ошибку
 	spendMoney(value) {
-		if(this.money < value) {
-			throw "Недостаточно золота!"
+		if(this.getMoney() < value) {
+			throw new Error("Недостаточно золота!");
 		} else {
-			this.money -= value;
+			var newValue = this.getMoney() - value;
+			this.setMoney(newValue);
 		}
 	};
+
+	// выводим количество денег на экран
 	displayMoney() {
-		this.walletElement.innerHTML = this.money;
+		this.walletElement.innerHTML = this.getMoney() + ' Золото';
 	}
 }

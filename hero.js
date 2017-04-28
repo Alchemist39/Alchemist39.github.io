@@ -79,7 +79,7 @@ class Hero {
 	// основную строку состояния героя выносим в отдельный метод для оптимизации
 	mainString() {
 		var mainString = this.count + ' ' + 'кликеров за' + ' ' + this.displayCurrentPrice() 
-		+ ' ' + 'золота' + ' ' + 'Урон: ' + this.displayDamage();
+		+ ' ' + 'золота' + ' ' + 'Урон: ' + this.getDamageString();
 		return mainString;
 	}
 
@@ -100,7 +100,7 @@ class Hero {
 		return dmg;
 	}
 
-	displayDamage() {
+	getDamageString() {
 		var dmg = decreaseBigNumbers(this.damage());
 		return dmg;
 	}

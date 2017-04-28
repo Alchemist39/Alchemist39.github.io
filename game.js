@@ -12,8 +12,7 @@ class Game {
 		// создаем правое поле
 		this.controlElement = createAndAppend(parentElement, '', 'control');
 		// создаем элемент Уровня и передаем в него содержимое HTML 
-		this.levelElement = createAndAppend(this.controlElement, this.level + ' Уровень' + ' ' + '(' 
-			+ this.killAtLevel + ' ' + '/10)', 'level');
+		this.levelElement = createAndAppend(this.controlElement, this.levelString(), 'level');
 		
 		// создаем экземпляр класса кошелек с аргументом экземпляра Game
 		this.wallet = new Wallet(this);
@@ -62,7 +61,8 @@ class Game {
 			var delta = (new Date()).valueOf() - parseInt(previousGameDate);
 			delta = Math.floor(delta / 1000);
 
-			var damage = (this.clicker.damage() + this.pig.damage() + this.devil.damage() + this.horse.damage()) * delta;
+			var damage = (this.clicker.damage() 
+				+ this.pig.damage() + this.devil.damage() + this.horse.damage()) * delta;
 			var enemyKilled = Math.floor(damage / this.enemy.hp);
 
 			this.wallet.addMoney(enemyKilled * this.enemy.getReward()); 
@@ -107,9 +107,13 @@ class Game {
 		this.setAllHeroesTarget(newEnemy);
 	}
 
+	// строка состояния для Уровня и его отображения
+	levelString() {
+		var levelString = this.level + ' Уровень' + ' ' + '(' + this.killAtLevel + ' ' + '/10)';
+		return levelString;
+	}
 	// выводим на экран отображение уровня
 	displayLevel() {
-		this.levelElement.innerHTML = this.level + ' Уровень' + ' ' + '(' + this.killAtLevel + ' ' 
-		+ '/10)';
+		this.levelElement.innerHTML = this.levelString();
 	}
 }

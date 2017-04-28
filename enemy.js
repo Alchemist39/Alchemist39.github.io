@@ -54,11 +54,11 @@ class Enemy {
 	// если награда за врага меньше единицы, то выдаем 1 золота за его убийство
 	// иначе рассчитываем награду по формуле
 	getReward() {
-		var rwrd = this.initialHp / 15;
-		if (rwrd < 1) {
+		var reward = this.initialHp / 15;
+		if (reward < 1) {
 			return 1;
 		} else {
-			return rwrd;
+			return reward;
 		}
 	}
 
@@ -86,7 +86,9 @@ class Enemy {
 	// метод рассчета случайного местоположения врага
 	// размер родительского элемента, минус размер врага умноженные на рандом (0 - 1)
 	setCoordinates() {
-		this.enemyElement.style.left = Math.random() * (this.game.battlefieldElement.clientWidth - 40) + 'px';
-		this.enemyElement.style.top = Math.random() * (this.game.battlefieldElement.clientHeight - 40) + 'px';
+		this.enemyElement.style.left = Math.random() * 
+			(this.game.battlefieldElement.clientWidth - 40) + 'px';
+		this.enemyElement.style.top = Math.random() * 
+			(this.game.battlefieldElement.clientHeight - 40) + 'px';
 	}
 }

@@ -1,21 +1,20 @@
 'use strict'
 
-// создаем конструктор класса Герой
+		// создаем конструктор класса Герой
+		// в конструктор передаем аттрибуты options
 class Hero {
-
-	// в конструктор передаем аттрибуты options
 	constructor(options) {
 
-		// передаем аттрибуты в свойства класса || значения по умолчанию
+		// передаем аттрибуты (options) в свойства класса (this...) || значения по умолчанию
 		this.game = options.game;
 		this.name = options.name;
 		this.initialPrice = options.initialPrice;
 		this.text = options.text;
 		this.visibility = options.visibility || 'hidden';
+		this.initialDamage = options.initialDamage || 1;
 
 		// передаем в count значение из хранилища по ID: имя + постоянная приписка || или дефолт
 		this.count = parseInt(localStorage.getItem(this.name + '-count')) || 0;
-		this.initialDamage = options.initialDamage || 1;
 
 		// создаем элемент героя по хелперу
 		this.heroElement = createAndAppend(
@@ -25,26 +24,29 @@ class Hero {
 			this.visibility
 		);
 
-		// приклике по врагу наносим урон
+		// при клике по элементу героя добавляем одного героя данного типа
+		// проверка достаточности денег происходит в методе траты денег в wallet'е
 		this.heroElement.onclick = function() {
 			this.add(1);
 		}.bind(this);
 
 		// если враг существует, наносим ему урон равный урону героя каждую секунду 
+		// каждую секунду проверяем выполнение условия в методе видимости (visible)
 		setInterval(function() {
 			if (this.target) {
 				this.target.recieveDamage(this.damage());				
 			}
 			this.setVisible();
 		}.bind(this), 1000);
+
+		// устанавливаем начальную видимость при отрисовке страницы (сборке конструктора)
 		this.setVisible();
 	}
 
 	// метод увеличения количества героев данного типа
 	// тратим деньги из кошелька в размере стоимости следущего героя
 	// увеличиваем количество героев на один
-	// устанавливаем в локальное хранилище текущее количество героев
-	// увеличиваем стоимость героя в размере 1.25 от количества героев
+	// устанавливаем в локальное хранилище текущее количество героев с уникальным именем
 	// отображаем количество героев на экране
 	add() {
 		this.game.wallet.spendMoney(this.getCurrentPrice());
@@ -54,15 +56,16 @@ class Hero {
 	}
 
 	// возвращаем цену следущего героя
+	// увеличиваем стоимость героя в размере начальная цена * 1.25 от количества героев || начальная
 	getCurrentPrice() {
 		var currentPrice = Math.round(this.initialPrice * (this.count * 1.25)) || this.initialPrice;
 		return currentPrice;
 	}
 
 	// устанавливаем видимость героев
-	// если цена героя становится меньше чем денег в хранилище, героя становится видимым перманентно
-	// если денег становится меньше чем денег, герой становится прозрачным, но не невидимым
-	// если денег вновь больше, чем цена героя, герой становится непрозрачным
+	// если цена героя становится меньше чем денег в хранилище, герой становится видимым перманентно
+	// если денег больше, чем цена героя, герой непрозрачный
+	// если денег становится меньше чем цена героя, герой становится прозрачным, но не невидимым
 	setVisible() {
 		if (this.getCurrentPrice() <= this.game.wallet.getMoney()) {
 			this.heroElement.style.visibility = 'visible';
@@ -85,10 +88,10 @@ class Hero {
 		this.setVisible();
 	}
 
-	// метод установки урона героя равный количеству героев * начальный урон героя / 5
+	// метод установки урона героя равный количеству героев * начальный урон героя*активные усиления
 	damage() {
-		var peps = this.count * this.initialDamage * this.game.general.boostDamage();
-		return peps;
+		var dmg = this.count * this.initialDamage * this.game.general.boostDamage();
+		return dmg;
 	}
 }
 

@@ -5,12 +5,15 @@ class Game {
 		// устанавливаем уровень равный значению из хранилища или 1
 		this.level = parseInt(localStorage.getItem('level')) || 1;
 
+		this.killAtLevel = 1;
+
 		// создаем левое поле
 		this.battlefieldElement = createAndAppend(parentElement, '', 'battlefield');
 		// создаем правое поле
 		this.controlElement = createAndAppend(parentElement, '', 'control');
 		// создаем элемент Уровня и передаем в него содержимое HTML 
-		this.levelElement = createAndAppend(this.controlElement, this.level + ' Уровень', 'level');
+		this.levelElement = createAndAppend(this.controlElement, this.level + ' Уровень' + ' ' + '(' 
+			+ this.killAtLevel + ' ' + '/10)', 'level');
 		
 		// создаем экземпляр класса кошелек с аргументом экземпляра Game
 		this.wallet = new Wallet(this);
@@ -82,6 +85,8 @@ class Game {
 
 	// метод класса Game, который принимает аргумент указывающий на экземпляр класса врага
 	// добавляем в кошелек деньги в размере награды за врага
+	// если врагов на уровне убито меньше 10, то увеличиваем счетчик убитых на уровне врагов
+	// если врагов убито 10 на текущем уровне, то устанавливаем счетчик на 1 и 
 	// увеличиваем уровень на один
 	// сохраняем в хранилище увеличенный уровень
 	// отображаем обновленный уровень
@@ -89,7 +94,13 @@ class Game {
 	// для всех героев устанавливаем целью вновь созданного врага
 	onKill(enemy) {		
 		this.wallet.addMoney(enemy.getReward());
-		this.level++;
+		
+		if (this.killAtLevel < 10) {
+			this.killAtLevel++;
+		} else if (this.killAtLevel == 10) {
+			this.killAtLevel = 1;
+			this.level++;
+		}
 		localStorage.setItem('level', this.level);
 		this.displayLevel();
 		var newEnemy = new Enemy(this);
@@ -98,6 +109,7 @@ class Game {
 
 	// выводим на экран отображение уровня
 	displayLevel() {
-		this.levelElement.innerHTML = this.level + ' Уровень';
+		this.levelElement.innerHTML = this.level + ' Уровень' + ' ' + '(' + this.killAtLevel + ' ' 
+		+ '/10)';
 	}
 }

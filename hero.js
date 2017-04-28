@@ -78,7 +78,8 @@ class Hero {
 
 	// основную строку состояния героя выносим в отдельный метод для оптимизации
 	mainString() {
-		var mainString = this.count + ' ' + 'кликеров за' + ' ' + this.displayCurrentPrice() + ' ' + 'золота';
+		var mainString = this.count + ' ' + 'кликеров за' + ' ' + this.displayCurrentPrice() 
+		+ ' ' + 'золота' + ' ' + 'Урон: ' + this.displayDamage();
 		return mainString;
 	}
 
@@ -95,7 +96,12 @@ class Hero {
 
 	// метод установки урона героя равный количеству героев * начальный урон героя*активные усиления
 	damage() {
-		var dmg = this.count * this.initialDamage * this.game.general.boostDamage();
+		var dmg = this.count * this.initialDamage; //* this.game.general.boostDamage();
+		return dmg;
+	}
+
+	displayDamage() {
+		var dmg = decreaseBigNumbers(this.damage());
 		return dmg;
 	}
 }

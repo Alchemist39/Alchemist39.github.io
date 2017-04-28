@@ -1,5 +1,6 @@
 'use strict'
 
+var game = null;
 window.onload = function() {
-	var game = new Game(document.body);
+	game = new Game(document.body);
 }

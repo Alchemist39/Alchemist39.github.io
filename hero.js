@@ -87,7 +87,7 @@ class Hero {
 
 	// метод установки урона героя равный количеству героев * начальный урон героя / 5
 	damage() {
-		var peps = this.count * this.initialDamage;
+		var peps = this.count * this.initialDamage * this.game.general.boostDamage();
 		return peps;
 	}
 }
@@ -104,6 +104,8 @@ class Clicker extends Hero {
 			text: 'кликеры',
 			visibility: 'visible'
 		});
+		// добавить метод в героя, в который передаем класс апгрейда
+		//this.addposibleUpgrade(new SuperClickerUpgrade);
 	}
 }
 
@@ -112,7 +114,7 @@ class Pig extends Hero {
 		super({
 			game,
 			initialPrice: 10,
-			initialDamage: 10,
+			initialDamage: 5,
 			name: 'pig',
 			text: 'поросята'
 		});
@@ -124,7 +126,7 @@ class Devil extends Hero {
 		super({
 			game,
 			initialPrice: 1000,
-			initialDamage: 1000,
+			initialDamage: 110,
 			name: 'devil',
 			text: 'дьяволятки'
 		});
@@ -136,7 +138,7 @@ class Horse extends Hero {
 		super({
 			game,
 			initialPrice: 10000,
-			initialDamage: 10000,
+			initialDamage: 300,
 			name: 'horse',
 			text: 'Лошадки'
 		});

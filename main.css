@@ -55,7 +55,7 @@ body {
 	}
 
 
-.level, .wallet, .reset, .clicker, .pig, .devil, .horse {
+.level, .wallet, .reset, .clicker, .pig, .devil, .horse, .general {
 	height: 40px;
 	width: 25%;
 	padding-left: 40px;
@@ -85,10 +85,16 @@ body {
 .pig {
 	background-image: url(png/32x32/Pig.png);
 	cursor: pointer;
-}.devil {
+}
+.devil {
 	background-image: url(png/32x32/Devil.png);
 	cursor: pointer;
-}.horse {
+}
+.horse {
 	background-image: url(png/32x32/Horse.png);
+	cursor: pointer;
+}
+.general {
+	background-image: url(png/32x32/Fool.png);
 	cursor: pointer;
 }

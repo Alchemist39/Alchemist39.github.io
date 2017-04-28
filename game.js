@@ -27,7 +27,7 @@ class Game {
 		this.devil = new Devil(this);
 		this.horse = new Horse(this);		
 		this.setAllHeroesTarget(this.enemy);
-
+		this.general = new General(this);
 		// в переменную передаем значение даты (количество миллисекунд на момент закрытия игры)
 		var previousGameDate = localStorage.getItem('date');
 
@@ -50,7 +50,7 @@ class Game {
 			localStorage.setItem('date', (new Date()).valueOf());
 		}, 1000);
 	};
-	
+
 	// устанавливает цель для всех кликеров
 	setAllHeroesTarget(target) {
 		this.clicker.target = target;

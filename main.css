@@ -7,6 +7,14 @@ html, body {
 body {
 	display: flex;
 	flex-direction: row;
+
+    -webkit-user-select: none;
+    /* user-select -- это нестандартное свойство */
+
+    -moz-user-select: none;
+    /* поэтому нужны префиксы */
+
+    -ms-user-select: none;
 }
 
 .battlefield, .control {

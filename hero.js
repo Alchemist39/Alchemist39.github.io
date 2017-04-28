@@ -56,11 +56,12 @@ class Hero {
 	}
 
 	// возвращаем цену следущего героя
-	// увеличиваем стоимость героя в размере начальная цена * 1.25 от количества героев || начальная
+	// увеличиваем стоимость героя в размере начальная цена * 1.07 от количества героев || начальная
 	getCurrentPrice() {
-		var currentPrice = Math.round(this.initialPrice * (this.count * 1.25)) || this.initialPrice;
+		var currentPrice = Math.round(this.initialPrice * (this.count * 1.07)) || this.initialPrice;
 		return currentPrice;
 	}
+
 
 	// устанавливаем видимость героев
 	// если цена героя становится меньше чем денег в хранилище, герой становится видимым перманентно
@@ -77,7 +78,7 @@ class Hero {
 
 	// основную строку состояния героя выносим в отдельный метод для оптимизации
 	mainString() {
-		var mainString = this.count + ' ' + 'кликеров за' + ' ' + this.getCurrentPrice() + ' ' + 'золота';
+		var mainString = this.count + ' ' + 'кликеров за' + ' ' + this.displayCurrentPrice() + ' ' + 'золота';
 		return mainString;
 	}
 
@@ -86,6 +87,10 @@ class Hero {
 	displayCount() {
 		this.heroElement.innerHTML = this.mainString();
 		this.setVisible();
+	}
+	displayCurrentPrice() {
+		var price = decreaseBigNumbers(this.getCurrentPrice());
+		return price;
 	}
 
 	// метод установки урона героя равный количеству героев * начальный урон героя*активные усиления
@@ -102,7 +107,7 @@ class Clicker extends Hero {
 		super({
 			game,
 			initialPrice: 1,
-			initialDamage: 1,
+			initialDamage: 10,
 			name: 'clicker',
 			text: 'кликеры',
 			visibility: 'visible'
@@ -117,7 +122,7 @@ class Pig extends Hero {
 		super({
 			game,
 			initialPrice: 10,
-			initialDamage: 5,
+			initialDamage: 100,
 			name: 'pig',
 			text: 'поросята'
 		});
@@ -129,7 +134,7 @@ class Devil extends Hero {
 		super({
 			game,
 			initialPrice: 1000,
-			initialDamage: 110,
+			initialDamage: 1000,
 			name: 'devil',
 			text: 'дьяволятки'
 		});
@@ -141,7 +146,7 @@ class Horse extends Hero {
 		super({
 			game,
 			initialPrice: 10000,
-			initialDamage: 300,
+			initialDamage: 1000000,
 			name: 'horse',
 			text: 'Лошадки'
 		});

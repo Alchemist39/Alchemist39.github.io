@@ -48,6 +48,6 @@ class Wallet {
 
 	// выводим количество денег на экран
 	displayMoney() {
-		this.walletElement.innerHTML = this.getMoney() + ' Золото';
+		this.walletElement.innerHTML = decreaseBigNumbers(this.getMoney()) + ' Золото';
 	}
 }

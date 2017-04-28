@@ -3,13 +3,13 @@
 		// создаем в нем конструктор с аргументом экземпляра класса Game
 		// создаем ссылку this.game на экземпляр класса Game
 
-		// устанавливаем начальное хп равным уровню на 3
+		// устанавливаем начальное хп равным 10 - 1 + 1,55 в степени уровень -1
 		// текущее хп изначально устанавливаем равным начальному хп
 class Enemy {
 	constructor(game) {
 		this.game = game;
 
-		this.initialHp = this.game.level * 3;
+		this.initialHp = Math.round(10 * (this.game.level - 1 + Math.pow(1.55, (this.game.level - 1))));
 		this.hp = this.initialHp;
 
 		// создаем элемент врага в окне слева
@@ -20,11 +20,15 @@ class Enemy {
 		// создаем числовое отображение количества здоровья
 		this.hpBorderElement = createAndAppend(this.enemyElement, '', 'hpBorder');
 		this.hpBarElement = createAndAppend(this.hpBorderElement, '', 'hpBar');
-		this.hpElement = createAndAppend(this.hpBorderElement, this.hp, 'HP');
+		this.hpElement = createAndAppend(
+			this.hpBorderElement, 
+			decreaseBigNumbers(Math.round(this.hp)), 
+			'HP'
+		);
 
 		// создаем метод, уменьшающий хп врага при клике по нему
 		this.enemyElement.onclick = function() {
-			this.recieveDamage(1);
+			this.recieveDamage(5);
 		}.bind(this);
 
 		// устанавливаем начальные случайные координаты спауна первого врага
@@ -48,7 +52,7 @@ class Enemy {
 
 	// метод для доступа к награде за текущего врага
 	getReward() {
-		return this.game.level * 3;
+		return this.initialHp / 15;
 	}
 
 	// метод изменения полоски здоровья
@@ -61,8 +65,9 @@ class Enemy {
 
 	// метод отображения ЦИФРЫ здоровья, округленный до целого
 	displayHp() {
-		this.hpElement.innerHTML = Math.round(this.hp);
+		this.hpElement.innerHTML = decreaseBigNumbers(Math.round(this.hp));
 	}
+
 
 	// метод удаления элемента врага
 	// вызываем метод из экземпляра класса Game
